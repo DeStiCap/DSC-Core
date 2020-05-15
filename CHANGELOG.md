@@ -1,4 +1,5 @@
-## [0.2.0-preview.1] - 2019-05-15
+## [0.2.0-preview.2] - 2019-05-15
+- Add GameInputData.
 
 ## [0.1.11-preview.2] - 2019-03-18
 - Add DPad button to InputButtonType enum.
