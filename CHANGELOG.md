@@ -1,3 +1,8 @@
+## [0.2.1-preview.1] - 2019-05-17
+- CalculateAxis in InputUtility now support Vector2.
+- Add function GetButton Down,Hold,Up in GameInputData.
+- Add Get Any function in GameInputData for Get any input in that type. (Axis or Button)
+
 ## [0.2.0-preview.2] - 2019-05-15
 - Add GameInputData.
 

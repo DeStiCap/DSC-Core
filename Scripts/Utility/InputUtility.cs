@@ -35,7 +35,21 @@ namespace DSC.Core
                 fAxis = fNewAxis;
             }
         }
-        
+
+        /// <summary>
+        /// Calculate new input axis to same old axis behaviour as old input.
+        /// </summary>
+        /// <param name="vAxis">Current Axis</param>
+        /// <param name="vRawAxis">Raw Axis that receive from new input.</param>
+        /// <param name="fSensitivity">Value axis incease in 1 second when press input.</param>
+        /// <param name="fGravity">Value axis decrease in 1 second to 0 when not press input.</param>
+        /// <param name="fDeltaTime">Time deltatime</param>
+        public static void CalculateAxis(ref Vector2 vAxis, Vector2 vRawAxis, float fSensitivity, float fGravity, float fDeltaTime)
+        {
+            CalculateAxis(ref vAxis.x, vRawAxis.x, fSensitivity, fGravity, fDeltaTime);
+            CalculateAxis(ref vAxis.y, vRawAxis.y, fSensitivity, fGravity, fDeltaTime);
+        }
+
         /// <summary>
         /// Convert raw float value from new input to GetInputType.
         /// </summary>

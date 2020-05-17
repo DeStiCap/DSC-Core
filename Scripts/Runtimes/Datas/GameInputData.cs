@@ -175,6 +175,34 @@ namespace DSC.Core
 
         #endregion
 
+        public Vector2 GetAnyRawAxis()
+        {
+            Vector2 vResult = Vector2.zero;
+
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                vResult = MainGetRawAxis(i);
+                if (vResult != Vector2.zero)
+                    break;
+            }
+
+            return vResult;
+        }
+
+        public Vector2 GetAnyRawAxis(int nAxisID)
+        {
+            Vector2 vResult = Vector2.zero;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                vResult = MainGetRawAxis(i,nAxisID);
+                if (vResult != Vector2.zero)
+                    break;
+            }
+
+            return vResult;
+        }
+
         public Vector2 GetRawAxis(int nPlayerID)
         {
             return MainGetRawAxis(nPlayerID);
@@ -182,14 +210,6 @@ namespace DSC.Core
 
         public Vector2 GetRawAxis(int nPlayerID, int nAxisID)
         {
-            return MainGetRawAxis(nPlayerID, nAxisID);
-        }
-
-        public Vector2 GetRawAxis<AxisType>(int nPlayerID, AxisType eAxis) where AxisType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eAxis, out int nAxisID))
-                return default;
-
             return MainGetRawAxis(nPlayerID, nAxisID);
         }
 
@@ -208,14 +228,6 @@ namespace DSC.Core
 
         public void SetRawAxis(int nPlayerID, int nAxisID, Vector2 vAxis)
         {
-            MainSetRawAxis(nPlayerID, vAxis, nAxisID);
-        }
-
-        public void SetRawAxis<AxisType>(int nPlayerID, AxisType eAxis, Vector2 vAxis) where AxisType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eAxis, out int nAxisID))
-                return;
-
             MainSetRawAxis(nPlayerID, vAxis, nAxisID);
         }
 
@@ -310,6 +322,34 @@ namespace DSC.Core
             #endregion
         }
 
+        public Vector2 GetAnyAxis()
+        {
+            Vector2 vResult = Vector2.zero;
+
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                vResult = MainGetAxis(i);
+                if (vResult != Vector2.zero)
+                    break;
+            }
+
+            return vResult;
+        }
+
+        public Vector2 GetAnyAxis(int nAxisID)
+        {
+            Vector2 vResult = Vector2.zero;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                vResult = MainGetAxis(i,nAxisID);
+                if (vResult != Vector2.zero)
+                    break;
+            }
+
+            return vResult;
+        }
+
         public Vector2 GetAxis(int nPlayerID)
         {
             return MainGetAxis(nPlayerID);
@@ -320,20 +360,52 @@ namespace DSC.Core
             return MainGetAxis(nPlayerID, nAxisID);
         }
 
-        public Vector2 GetAxis<AxisType>(int nPlayerID, AxisType eAxis) where AxisType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eAxis, out int nAxisID))
-                return Vector2.zero;
-
-            return MainGetAxis(nPlayerID, nAxisID);
-        }
-
         Vector2 MainGetAxis(int nPlayerID, int nAxisID = 0)
         {
             if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
                 return Vector2.zero;
 
             return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].vAxis;
+        }
+
+        public DirectionType2D GetAnyHorizontalPress()
+        {
+            DirectionType2D eResult = 0;
+
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                for(int j = 0; j < m_lstPlayerInput[i].arrAxis.Length; j++)
+                {
+                    eResult = m_lstPlayerInput[i].arrAxis[j].eHorizontalPress;
+                    if (eResult != 0)
+                        goto Finish;
+                }                
+            }
+
+        Finish:
+            ;
+
+            return eResult;
+        }
+
+        public DirectionType2D GetAnyHorizontalPress(int nAxisID)
+        {
+            DirectionType2D eResult = 0;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                if (!HasAxisID(i, nAxisID))
+                    continue;
+
+                eResult = m_lstPlayerInput[i].arrAxis[nAxisID].eHorizontalPress;
+                if (eResult != 0)
+                    goto Finish;
+            }
+
+        Finish:
+            ;
+
+            return eResult;
         }
 
         public DirectionType2D GetHorizontalPress(int nPlayerID)
@@ -346,20 +418,52 @@ namespace DSC.Core
             return MainGetHorizontalPress(nPlayerID, nAxisID);
         }
 
-        public DirectionType2D GetHorizontalPress<AxisType>(int nPlayerID, AxisType eAxis) where AxisType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eAxis, out int nAxisID))
-                return 0;
-
-            return MainGetHorizontalPress(nPlayerID, nAxisID);
-        }
-
         DirectionType2D MainGetHorizontalPress(int nPlayerID, int nAxisID = 0)
         {
             if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
                 return 0;
 
             return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].eHorizontalPress;
+        }
+
+        public DirectionType2D GetAnyVerticalPress()
+        {
+            DirectionType2D eResult = 0;
+
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                for(int j = 0; j < m_lstPlayerInput[i].arrAxis.Length; j++)
+                {
+                    eResult = m_lstPlayerInput[i].arrAxis[j].eVerticalPress;
+                    if (eResult != 0)
+                        goto Finish;
+                }
+            }
+
+        Finish:
+            ;
+
+            return eResult;
+        }
+
+        public DirectionType2D GetAnyVerticalPress(int nAxisID)
+        {
+            DirectionType2D eResult = 0;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                if (!HasAxisID(i, nAxisID))
+                    continue;
+
+                eResult = m_lstPlayerInput[i].arrAxis[nAxisID].eVerticalPress;
+                if (eResult != 0)
+                    goto Finish;
+            }
+
+        Finish:
+            ;
+
+            return eResult;
         }
 
         public DirectionType2D GetVerticalPress(int nPlayerID)
@@ -372,20 +476,52 @@ namespace DSC.Core
             return MainGetVerticalPress(nPlayerID, nAxisID);
         }
 
-        public DirectionType2D GetVerticalPress<AxisType>(int nPlayerID, AxisType eAxis) where AxisType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eAxis, out int nAxisID))
-                return 0;
-
-            return MainGetVerticalPress(nPlayerID, nAxisID);
-        }
-
         DirectionType2D MainGetVerticalPress(int nPlayerID, int nAxisID = 0)
         {
             if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
                 return 0;
 
             return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].eVerticalPress;
+        }
+
+        public DirectionType2D GetAnyHorizontalDoublePress()
+        {
+            DirectionType2D eResult = 0;
+
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                for(int j = 0; j < m_lstPlayerInput[i].arrAxis.Length; j++)
+                {
+                    eResult = m_lstPlayerInput[i].arrAxis[j].eHorizontalDoublePress;
+                    if (eResult != 0)
+                        goto Finish;                    
+                }
+            }
+
+        Finish:
+            ;
+
+            return eResult;
+        }
+
+        public DirectionType2D GetAnyHorizontalDoublePress(int nAxisID)
+        {
+            DirectionType2D eResult = 0;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                if (!HasAxisID(i, nAxisID))
+                    continue;
+
+                eResult = m_lstPlayerInput[i].arrAxis[nAxisID].eHorizontalDoublePress;
+                if (eResult != 0)
+                    goto Finish;
+            }
+
+        Finish:
+            ;
+
+            return eResult;
         }
 
         public DirectionType2D GetHorizontalDoublePress(int nPlayerID)
@@ -398,20 +534,52 @@ namespace DSC.Core
             return MainGetHorizontalDoublePress(nPlayerID, nAxisID);
         }
 
-        public DirectionType2D GetHorizontalDoublePress<AxisType>(int nPlayerID, AxisType eAxis) where AxisType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eAxis, out int nAxisID))
-                return 0;
-
-            return MainGetHorizontalDoublePress(nPlayerID, nAxisID);
-        }
-
         DirectionType2D MainGetHorizontalDoublePress(int nPlayerID, int nAxisID = 0)
         {
             if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
                 return 0;
 
             return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].eHorizontalDoublePress;
+        }
+
+        public DirectionType2D GetAnyVerticalDoublePress()
+        {
+            DirectionType2D eResult = 0;
+
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                for(int j = 0; j < m_lstPlayerInput[i].arrAxis.Length; j++)
+                {
+                    eResult = m_lstPlayerInput[i].arrAxis[j].eVerticalDoublePress;
+                    if (eResult != 0)
+                        goto Finish;
+                }
+            }
+
+        Finish:
+            ;
+
+            return eResult;
+        }
+
+        public DirectionType2D GetAnyVerticalDoublePress(int nAxisID)
+        {
+            DirectionType2D eResult = 0;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                if (!HasAxisID(i, nAxisID))
+                    continue;
+
+                eResult = m_lstPlayerInput[i].arrAxis[nAxisID].eVerticalDoublePress;
+                if (eResult != 0)
+                    goto Finish;
+            }
+
+        Finish:
+            ;
+
+            return eResult;
         }
 
         public DirectionType2D GetVerticalDoublePress(int nPlayerID)
@@ -424,14 +592,6 @@ namespace DSC.Core
             return MainGetVerticalDoublePress(nPlayerID, nAxisID);
         }
 
-        public DirectionType2D GetVerticalDoublePress<AxisType>(int nPlayerID, AxisType eAxis) where AxisType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eAxis, out int nAxisID))
-                return 0;
-
-            return MainGetVerticalDoublePress(nPlayerID, nAxisID);
-        }
-
         DirectionType2D MainGetVerticalDoublePress(int nPlayerID, int nAxisID = 0)
         {
             if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
@@ -440,18 +600,22 @@ namespace DSC.Core
             return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].eVerticalDoublePress;
         }
 
-        public GetInputType GetButtonInput(int nPlayerID, int nButtonID)
+        public GetInputType GetButtonInput(int nButtonID)
         {
-            return MainGetButtonInput(nPlayerID, nButtonID);
-        }
+            var eResult = GetInputType.None;
 
-        public GetInputType GetButtonInput<GameButtonType>(int nPlayerID, GameButtonType eButton) where GameButtonType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eButton, out int nButtonID))
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                return default;
+                eResult = MainGetButtonInput(i, nButtonID);
+                if (eResult != GetInputType.None)
+                    break;
             }
 
+            return eResult;
+        }
+
+        public GetInputType GetButtonInput(int nPlayerID, int nButtonID)
+        {
             return MainGetButtonInput(nPlayerID, nButtonID);
         }
 
@@ -472,25 +636,8 @@ namespace DSC.Core
             MainSetButtonInput(nPlayerID, nButtonID, eInput);
         }
 
-        public void SetButtonInput<GameButtonType>(int nPlayerID, GameButtonType eButton, GetInputType eInput) where GameButtonType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eButton, out var nButtonID))
-                return;
-
-            MainSetButtonInput(nPlayerID, nButtonID, eInput);
-        }
-
         public void SetButtonInput(int nPlayerID, int nButtonID, bool bPress)
         {
-            var eInput = ParseButtonPress(bPress);
-            MainSetButtonInput(nPlayerID, nButtonID, eInput);
-        }
-
-        public void SetButtonInput<GameButtonType>(int nPlayerID, GameButtonType eButton, bool bPress) where GameButtonType : unmanaged, System.Enum
-        {
-            if (!FlagUtility.TryParseInt(eButton, out var nButtonID))
-                return;
-
             var eInput = ParseButtonPress(bPress);
             MainSetButtonInput(nPlayerID, nButtonID, eInput);
         }
@@ -509,6 +656,215 @@ namespace DSC.Core
                     eGetType = eInput
                 });
             }
+        }
+
+        public bool GetAnyButtonDown()
+        {
+            bool bResult = false;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                foreach (var hButton in m_lstPlayerInput[i].dicButton)
+                {
+                    if (hButton.Value == null)
+                        continue;
+
+                    bResult = IsButtonDown(hButton.Value.eGetType);
+                    if (bResult)
+                        goto Finish;
+                }
+            }
+
+        Finish:
+            ;
+
+            return bResult;
+        }
+
+        public bool GetAnyButtonDown(int nPlayerID)
+        {
+            bool bResult = false;
+            if (!HasPlayerID(nPlayerID))
+                goto Finish;
+
+            foreach (var hButton in m_lstPlayerInput[nPlayerID].dicButton)
+            {
+                if (hButton.Value == null)
+                    continue;
+
+                bResult = IsButtonDown(hButton.Value.eGetType);
+                if (bResult)
+                    goto Finish;
+            }
+
+        Finish:
+            ;
+
+            return bResult;
+        }
+
+        public bool GetButtonDown(int nButtonID)
+        {
+            bool bResult = false;
+
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                bResult = MainGetButtonDown(i, nButtonID);
+                if (bResult)
+                    break;
+            }
+
+            return bResult;
+        }
+
+        public bool GetButtonDown(int nPlayerID,int nButtonID)
+        {
+            return MainGetButtonDown(nPlayerID, nButtonID);
+        }
+
+
+        bool MainGetButtonDown(int nPlayerID, int nButtonID)
+        {
+            var eInput = MainGetButtonInput(nPlayerID, nButtonID);
+            return IsButtonDown(eInput);
+        }
+
+        public bool GetAnyButtonHold()
+        {
+            bool bResult = false;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                foreach(var hButton in m_lstPlayerInput[i].dicButton)
+                {
+                    if (hButton.Value == null)
+                        continue;
+
+                    bResult = IsButtonHold(hButton.Value.eGetType);
+                    if (bResult)
+                        goto Finish;
+                }
+            }
+
+        Finish:
+            ;
+
+            return bResult;
+        }
+
+        public bool GetAnyButtonHold(int nPlayerID)
+        {
+            bool bResult = false;
+            if (!HasPlayerID(nPlayerID))
+                goto Finish;
+
+            foreach (var hButton in m_lstPlayerInput[nPlayerID].dicButton)
+            {
+                if (hButton.Value == null)
+                    continue;
+
+                bResult = IsButtonHold(hButton.Value.eGetType);
+                if (bResult)
+                    goto Finish;
+            }
+
+        Finish:
+            ;
+
+            return bResult;
+        }
+
+        public bool GetButtonHold(int nButtonID)
+        {
+            bool bResult = false;
+
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                bResult = MainGetButtonHold(i, nButtonID);
+                if (bResult)
+                    break;
+            }
+
+            return bResult;
+        }
+
+        public bool GetButtonHold(int nPlayerID,int nButtonID)
+        {
+            return MainGetButtonHold(nPlayerID, nButtonID);
+        }
+
+        bool MainGetButtonHold(int nPlayerID, int nButtonID)
+        {
+            var eInput = MainGetButtonInput(nPlayerID, nButtonID);
+            return IsButtonHold(eInput);
+        }
+
+        public bool GetAnyButtonUp()
+        {
+            bool bResult = false;
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                foreach(var hButton in m_lstPlayerInput[i].dicButton)
+                {
+                    if (hButton.Value == null)
+                        continue;
+
+                    bResult = IsButtonUp(hButton.Value.eGetType);
+                    if (bResult)
+                        goto Finish;
+                }
+            }
+
+        Finish:
+            ;
+
+            return bResult;
+        }
+
+        public bool GetAnyButtonUp(int nPlayerID)
+        {
+            bool bResult = false;
+            if(!HasPlayerID(nPlayerID))
+                goto Finish;
+
+            foreach (var hButton in m_lstPlayerInput[nPlayerID].dicButton)
+            {
+                if (hButton.Value == null)
+                    continue;
+
+                bResult = IsButtonUp(hButton.Value.eGetType);
+                if (bResult)
+                    goto Finish;
+            }
+
+        Finish:
+            ;
+
+            return bResult;
+        }
+
+        public bool GetButtonUp(int nButtonID)
+        {
+            bool bResult = false;
+            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                bResult = MainGetButtonUp(i, nButtonID);
+                if (bResult)
+                    break;
+            }
+
+            return bResult;
+        }
+
+        public bool GetButtonUp(int nPlayerID,int nButtonID)
+        {
+            return MainGetButtonUp(nPlayerID, nButtonID);
+        }
+
+        bool MainGetButtonUp(int nPlayerID, int nButtonID)
+        {
+            var eInput = MainGetButtonInput(nPlayerID, nButtonID);
+            return IsButtonUp(eInput);
         }
 
         #endregion
@@ -563,6 +919,21 @@ namespace DSC.Core
         GetInputType ParseButtonPress(bool bPress)
         {
             return bPress ? GetInputType.Down : GetInputType.Up;
+        }
+
+        bool IsButtonDown(GetInputType eInput)
+        {
+            return eInput == GetInputType.Down;
+        }
+
+        bool IsButtonHold(GetInputType eInput)
+        {
+            return eInput == GetInputType.Hold;
+        }
+
+        bool IsButtonUp(GetInputType eInput)
+        {
+            return eInput == GetInputType.Up;
         }
 
         #endregion
