@@ -114,5 +114,15 @@ namespace DSC.Core
                     list.RemoveAt(i);
             }
         }
+
+        /// <summary>
+        /// Remove last index from list.
+        /// </summary>
+        /// <typeparam name="Data">List data type</typeparam>
+        /// <param name="list">List data</param>
+        public static void RemoveAtLast<Data>(this List<Data> list)
+        {
+            list.RemoveAt(list.Count - 1);
+        }
     }
 }

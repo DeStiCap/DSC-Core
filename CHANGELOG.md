@@ -1,3 +1,9 @@
+## [0.2.2-preview.1] - 2019-05-27
+- Add RemoveAtLast function extension for List.
+- Add ChangePlayerNumber function in GameInputData for change player input number in runtime.
+- Add DSC_Input. Singleton input for use with other system.
+- Add Global_InputManager.
+
 ## [0.2.1-preview.1] - 2019-05-17
 - CalculateAxis in InputUtility now support Vector2.
 - Add function GetButton Down,Hold,Up in GameInputData.

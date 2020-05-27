@@ -48,15 +48,26 @@ namespace DSC.Core
 
         #region Variable
 
+        #region Variable - Property
+
+        public bool isCreate { get; private set; }
+
+        #endregion
+
         readonly List<InputData> m_lstPlayerInput;
         readonly float m_fSensitivity;
         readonly float m_fGravity;
+        readonly int m_nAxisNumber;
+        
 
         #endregion
 
         public GameInputData(int nPlayerNumber)
         {
+            isCreate = true;
+
             m_lstPlayerInput = new List<InputData>();
+            m_nAxisNumber = 2;
             m_fSensitivity = 3f;
             m_fGravity = 3f;
 
@@ -65,16 +76,22 @@ namespace DSC.Core
 
         public GameInputData(int nPlayerNumber, int nAxisNumber)
         {
+            isCreate = true;
+
             m_lstPlayerInput = new List<InputData>();
+            m_nAxisNumber = nAxisNumber;
             m_fSensitivity = 3f;
             m_fGravity = 3f;
 
-            InitData(nPlayerNumber, nAxisNumber);
+            InitData(nPlayerNumber);
         }
 
         public GameInputData(int nPlayerNumber, float fSensitivity, float fGravity)
         {
+            isCreate = true;
+
             m_lstPlayerInput = new List<InputData>();
+            m_nAxisNumber = 2;
             m_fSensitivity = fSensitivity;
             m_fGravity = fGravity;
 
@@ -83,11 +100,14 @@ namespace DSC.Core
 
         public GameInputData(int nPlayerNumber, int nAxisNumber, float fSensitivity, float fGravity)
         {
+            isCreate = true;
+
             m_lstPlayerInput = new List<InputData>();
+            m_nAxisNumber = nAxisNumber;
             m_fSensitivity = fSensitivity;
             m_fGravity = fGravity;
 
-            InitData(nPlayerNumber, nAxisNumber);
+            InitData(nPlayerNumber);
         }
 
         #region Main
@@ -174,6 +194,29 @@ namespace DSC.Core
         }
 
         #endregion
+
+        public void ChangePlayerNumber(int nPlayerNumber)
+        {
+            if (nPlayerNumber < 1)
+            {
+                Debug.LogError("Can't change player number in GameInputData to " + nPlayerNumber);
+                return;
+            }
+
+            int nNeedAdd = m_lstPlayerInput.Count - nPlayerNumber;
+            if (nNeedAdd == 0)
+                return;
+
+            bool bAdd = nNeedAdd > 0;
+            int nLoop = bAdd ? nNeedAdd : -nNeedAdd;
+            for (int i = 0; i < nLoop; i++)
+            {
+                if (bAdd)
+                    m_lstPlayerInput.Add(new InputData());
+                else
+                    m_lstPlayerInput.RemoveAtLast();
+            }
+        }
 
         public Vector2 GetAnyRawAxis()
         {
@@ -871,7 +914,7 @@ namespace DSC.Core
 
         #region Helper
 
-        void InitData(int nPlayerNumber, int nAxisNumber = 1)
+        void InitData(int nPlayerNumber)
         {
             if (nPlayerNumber < 1)
             {
@@ -881,7 +924,7 @@ namespace DSC.Core
 
             for (int i = 0; i < nPlayerNumber; i++)
             {
-                m_lstPlayerInput.Add(GetNewInputData(nAxisNumber));
+                m_lstPlayerInput.Add(GetNewInputData(m_nAxisNumber));
             }
         }
 
