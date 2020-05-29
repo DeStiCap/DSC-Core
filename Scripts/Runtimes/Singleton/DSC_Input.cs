@@ -239,6 +239,134 @@ namespace DSC.Core
             return m_hBaseInstance.gameInputData.GetVerticalDoublePress(nPlayerID, nAxisID);
         }
 
+        public static DirectionType2D GetAnyHorizontalTap()
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAnyHorizontalTap();
+        }
+
+        public static DirectionType2D GetAnyHorizontalTap(int nAxisID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAnyHorizontalTap(nAxisID);
+        }
+
+        public static DirectionType2D GetHorizontalTap(int nPlayerID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetHorizontalTap(nPlayerID);
+        }
+
+        public static DirectionType2D GetHorizontalTap(int nPlayerID, int nAxisID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetHorizontalTap(nPlayerID, nAxisID);
+        }
+
+        public static DirectionType2D GetAnyVerticalTap()
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAnyVerticalTap();
+        }
+
+        public static DirectionType2D GetAnyVerticalTap(int nAxisID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAnyVerticalTap(nAxisID);
+        }
+
+        public static DirectionType2D GetVerticalTap(int nPlayerID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetVerticalTap(nPlayerID);
+        }
+
+        public static DirectionType2D GetVerticalTap(int nPlayerID, int nAxisID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetVerticalTap(nPlayerID, nAxisID);
+        }
+
+        public static DirectionType2D GetAnyHorizontalDoubleTap()
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAnyHorizontalDoubleTap();
+        }
+
+        public static DirectionType2D GetAnyHorizontalDoubleTap(int nAxisID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAnyHorizontalDoubleTap(nAxisID);
+        }
+
+        public static DirectionType2D GetHorizontalDoubleTap(int nPlayerID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetHorizontalDoubleTap(nPlayerID);
+        }
+
+        public static DirectionType2D GetHorizontalDoubleTap(int nPlayerID, int nAxisID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetHorizontalDoubleTap(nPlayerID, nAxisID);
+        }
+
+        public static DirectionType2D GetAnyVerticalDoubleTap()
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAnyVerticalDoubleTap();
+        }
+
+        public static DirectionType2D GetAnyVerticalDoubleTap(int nAxisID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAnyVerticalDoubleTap(nAxisID);
+        }
+
+        public static DirectionType2D GetVerticalDoubleTap(int nPlayerID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetVerticalDoubleTap(nPlayerID);
+        }
+
+        public static DirectionType2D GetVerticalDoubleTap(int nPlayerID, int nAxisID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetVerticalDoubleTap(nPlayerID, nAxisID);
+        }
+
         public static GetInputType GetButtonInput(int nButtonID)
         {
             if (!HasBaseInstance())
@@ -365,6 +493,30 @@ namespace DSC.Core
                 return false;
 
             return m_hBaseInstance.gameInputData.GetButtonUp(nPlayerID, nButtonID);
+        }
+
+        public static int GetAllButtonDownFlag(int nPlayerID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAllButtonDownFlag(nPlayerID);
+        }
+
+        public static int GetAllButtonHoldFlag(int nPlayerID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAllButtonHoldFlag(nPlayerID);
+        }
+
+        public static int GetAllButtonUpFlag(int nPlayerID)
+        {
+            if (!HasBaseInstance())
+                return 0;
+
+            return m_hBaseInstance.gameInputData.GetAllButtonUpFlag(nPlayerID);
         }
 
         #endregion

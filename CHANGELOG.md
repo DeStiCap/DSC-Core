@@ -1,3 +1,8 @@
+## [0.2.3-preview.1] - 2019-05-29
+- Add GetAllButtonDownFlag, GetAllButtonHoldFlag, GetAllButtonUpFlag function in GameInputData.
+- Add Get Axis tap, double tap function in GameInputData and DSC_Input.
+- Add InputTemplate sample.
+
 ## [0.2.2-preview.1] - 2019-05-27
 - Add RemoveAtLast function extension for List.
 - Add ChangePlayerNumber function in GameInputData for change player input number in runtime.

@@ -6,42 +6,62 @@ namespace DSC.Core
 {
     public struct GameInputData
     {
+        #region Enum
+
+        enum AxisType
+        {
+            Horizontal,
+            Vertical
+        }
+
+        enum AxisEventType
+        {
+            Press,
+            DoublePress,
+            Tap,
+            DoubleTap
+        }
+
+        #endregion
+
         #region Data
 
         struct AxisData
         {
-            public Vector2 vRawAxis;
-            public Vector2 vAxis;
+            public Vector2 m_vRawAxis;
+            public Vector2 m_vAxis;
 
-            public DirectionType2D eHorizontalPress;
-            public DirectionType2D eHorizontalDoublePress;
-            public DirectionType2D eHorizontalTap;
-            public DirectionType2D eHorizontalDoubleTap;
+            public DirectionType2D m_eHorizontalPress;
+            public DirectionType2D m_eHorizontalDoublePress;
+            public DirectionType2D m_eHorizontalTap;
+            public DirectionType2D m_eHorizontalDoubleTap;
 
-            public DirectionType2D eLastHorizontalTap;
-            public float fHorizontalPressTime;
-            public float fHorizontalReleaseTime;
+            public DirectionType2D m_eLastHorizontalTap;
+            public float m_fHorizontalPressTime;
+            public float m_fHorizontalReleaseTime;
 
-            public DirectionType2D eVerticalPress;
-            public DirectionType2D eVerticalDoublePress;
-            public DirectionType2D eVerticalTap;
-            public DirectionType2D eVerticalDoubleTap;
+            public DirectionType2D m_eVerticalPress;
+            public DirectionType2D m_eVerticalDoublePress;
+            public DirectionType2D m_eVerticalTap;
+            public DirectionType2D m_eVerticalDoubleTap;
 
-            public DirectionType2D eLastVerticalTap;
-            public float fVerticalPressTime;
-            public float fVerticalReleaseTime;
+            public DirectionType2D m_eLastVerticalTap;
+            public float m_fVerticalPressTime;
+            public float m_fVerticalReleaseTime;
         }
 
         struct InputData
         {
-            public AxisData[] arrAxis;
-            public Dictionary<int, ButtonData> dicButton;
-
+            public AxisData[] m_arrAxis;
+            public Dictionary<int, ButtonData> m_dicButton;
+            public int m_nAllDownFlag;
+            public int m_nAllHoldFlag;
+            public int m_nAllUpFlag;
         }
 
         class ButtonData
         {
-            public GetInputType eGetType;
+            public GetInputType m_eGetType;
         }
 
         #endregion
@@ -122,32 +142,32 @@ namespace DSC.Core
             for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
                 var hInput = m_lstPlayerInput[i];
-                for (int j = 0; j < hInput.arrAxis.Length; j++)
+                for (int j = 0; j < hInput.m_arrAxis.Length; j++)
                 {
-                    var hAxis = hInput.arrAxis[j];
-                    if (hAxis.eLastHorizontalTap != 0)
+                    var hAxis = hInput.m_arrAxis[j];
+                    if (hAxis.m_eLastHorizontalTap != 0)
                     {
-                        if (fTime >= hAxis.fHorizontalReleaseTime + fDelayClear)
+                        if (fTime >= hAxis.m_fHorizontalReleaseTime + fDelayClear)
                         {
-                            hAxis.eLastHorizontalTap = 0;
+                            hAxis.m_eLastHorizontalTap = 0;
                         }
                     }
 
-                    if (hAxis.eLastVerticalTap != 0)
+                    if (hAxis.m_eLastVerticalTap != 0)
                     {
-                        if (fTime >= hAxis.fVerticalReleaseTime + fDelayClear)
+                        if (fTime >= hAxis.m_fVerticalReleaseTime + fDelayClear)
                         {
-                            hAxis.eLastVerticalTap = 0;
+                            hAxis.m_eLastVerticalTap = 0;
                         }
                     }
 
-                    if (hAxis.vAxis != hAxis.vRawAxis)
+                    if (hAxis.m_vAxis != hAxis.m_vRawAxis)
                     {
-                        InputUtility.CalculateAxis(ref hAxis.vAxis.x, hAxis.vRawAxis.x, m_fSensitivity, m_fGravity, fDeltaTime);
-                        InputUtility.CalculateAxis(ref hAxis.vAxis.y, hAxis.vRawAxis.y, m_fSensitivity, m_fGravity, fDeltaTime);
+                        InputUtility.CalculateAxis(ref hAxis.m_vAxis.x, hAxis.m_vRawAxis.x, m_fSensitivity, m_fGravity, fDeltaTime);
+                        InputUtility.CalculateAxis(ref hAxis.m_vAxis.y, hAxis.m_vRawAxis.y, m_fSensitivity, m_fGravity, fDeltaTime);
                     }
 
-                    hInput.arrAxis[j] = hAxis;
+                    hInput.m_arrAxis[j] = hAxis;
                 }
 
                 m_lstPlayerInput[i] = hInput;
@@ -160,31 +180,35 @@ namespace DSC.Core
             {
                 var hInput = m_lstPlayerInput[i];
 
-                for (int j = 0; j < hInput.arrAxis.Length; j++)
+                for (int j = 0; j < hInput.m_arrAxis.Length; j++)
                 {
-                    var hAxis = hInput.arrAxis[j];
-                    hAxis.eHorizontalPress = 0;
-                    hAxis.eHorizontalDoublePress = 0;
-                    hAxis.eHorizontalTap = 0;
-                    hAxis.eHorizontalDoubleTap = 0;
-                    hAxis.eVerticalPress = 0;
-                    hAxis.eVerticalDoublePress = 0;
-                    hAxis.eVerticalTap = 0;
-                    hAxis.eVerticalDoubleTap = 0;
-                    hInput.arrAxis[j] = hAxis;
+                    var hAxis = hInput.m_arrAxis[j];
+                    hAxis.m_eHorizontalPress = 0;
+                    hAxis.m_eHorizontalDoublePress = 0;
+                    hAxis.m_eHorizontalTap = 0;
+                    hAxis.m_eHorizontalDoubleTap = 0;
+                    hAxis.m_eVerticalPress = 0;
+                    hAxis.m_eVerticalDoublePress = 0;
+                    hAxis.m_eVerticalTap = 0;
+                    hAxis.m_eVerticalDoubleTap = 0;
+                    hInput.m_arrAxis[j] = hAxis;
                 }
 
-                foreach (var hButton in hInput.dicButton)
+                foreach (var hButton in hInput.m_dicButton)
                 {
+                    var hButtonID = hButton.Key;
                     var hValue = hButton.Value;
-                    switch (hValue.eGetType)
+                    switch (hValue.m_eGetType)
                     {
                         case GetInputType.Down:
-                            hValue.eGetType = GetInputType.Hold;
+                            hValue.m_eGetType = GetInputType.Hold;
+                            hInput.m_nAllDownFlag &= ~hButtonID;
+                            hInput.m_nAllHoldFlag |= hButtonID;
                             break;
 
                         case GetInputType.Up:
-                            hValue.eGetType = GetInputType.None;
+                            hValue.m_eGetType = GetInputType.None;
+                            hInput.m_nAllUpFlag &= ~hButtonID;
                             break;
                     }
                 }
@@ -261,7 +285,7 @@ namespace DSC.Core
             if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
                 return default;
 
-            return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].vRawAxis;
+            return m_lstPlayerInput[nPlayerID].m_arrAxis[nAxisID].m_vRawAxis;
         }
 
         public void SetRawAxis(int nPlayerID, Vector2 vAxis)
@@ -280,12 +304,12 @@ namespace DSC.Core
                 return;
 
             float fTime = Time.unscaledTime;
-            var hAxis = m_lstPlayerInput[nPlayerID].arrAxis[nAxisID];
-            Vector2 vPreviousAxis = hAxis.vRawAxis;
+            var hAxis = m_lstPlayerInput[nPlayerID].m_arrAxis[nAxisID];
+            Vector2 vPreviousAxis = hAxis.m_vRawAxis;
             UpdateHorizontal();
             UpdateVertical();
-            hAxis.vRawAxis = vAxis;
-            m_lstPlayerInput[nPlayerID].arrAxis[nAxisID] = hAxis;
+            hAxis.m_vRawAxis = vAxis;
+            m_lstPlayerInput[nPlayerID].m_arrAxis[nAxisID] = hAxis;
 
 
             #region Method
@@ -297,31 +321,31 @@ namespace DSC.Core
 
                 if (vAxis.x != 0 && vPreviousAxis.x == 0)
                 {
-                    hAxis.eHorizontalPress = eNext;
-                    hAxis.fHorizontalPressTime = fTime;
+                    hAxis.m_eHorizontalPress = eNext;
+                    hAxis.m_fHorizontalPressTime = fTime;
 
-                    if (hAxis.eLastHorizontalTap != 0 && hAxis.eLastHorizontalTap == eNext)
+                    if (hAxis.m_eLastHorizontalTap != 0 && hAxis.m_eLastHorizontalTap == eNext)
                     {
-                        hAxis.eHorizontalDoublePress = eNext;
+                        hAxis.m_eHorizontalDoublePress = eNext;
                     }
                 }
                 else if (vAxis.x == 0 && vPreviousAxis.x != 0)
                 {
-                    hAxis.fHorizontalReleaseTime = fTime;
+                    hAxis.m_fHorizontalReleaseTime = fTime;
 
-                    if (fTime < hAxis.fHorizontalPressTime + 0.2f)
+                    if (fTime < hAxis.m_fHorizontalPressTime + 0.2f)
                     {
-                        if (hAxis.eLastHorizontalTap != 0 && hAxis.eLastHorizontalTap == ePrevious)
+                        if (hAxis.m_eLastHorizontalTap != 0 && hAxis.m_eLastHorizontalTap == ePrevious)
                         {
-                            hAxis.eHorizontalDoubleTap = ePrevious;
+                            hAxis.m_eHorizontalDoubleTap = ePrevious;
                         }
 
-                        hAxis.eHorizontalTap = ePrevious;
-                        hAxis.eLastHorizontalTap = ePrevious;
+                        hAxis.m_eHorizontalTap = ePrevious;
+                        hAxis.m_eLastHorizontalTap = ePrevious;
                     }
                     else
                     {
-                        hAxis.eLastHorizontalTap = 0;
+                        hAxis.m_eLastHorizontalTap = 0;
                     }
                 }
             }
@@ -333,31 +357,31 @@ namespace DSC.Core
 
                 if (vAxis.y != 0 && vPreviousAxis.y == 0)
                 {
-                    hAxis.eVerticalPress = eNext;
-                    hAxis.fVerticalPressTime = fTime;
+                    hAxis.m_eVerticalPress = eNext;
+                    hAxis.m_fVerticalPressTime = fTime;
 
-                    if (hAxis.eLastVerticalTap != 0 && hAxis.eLastVerticalTap == eNext)
+                    if (hAxis.m_eLastVerticalTap != 0 && hAxis.m_eLastVerticalTap == eNext)
                     {
-                        hAxis.eVerticalDoublePress = eNext;
+                        hAxis.m_eVerticalDoublePress = eNext;
                     }
                 }
                 else if (vAxis.y == 0 && vPreviousAxis.y != 0)
                 {
-                    hAxis.fVerticalReleaseTime = fTime;
+                    hAxis.m_fVerticalReleaseTime = fTime;
 
-                    if (fTime < hAxis.fVerticalPressTime + 0.2f)
+                    if (fTime < hAxis.m_fVerticalPressTime + 0.2f)
                     {
-                        if (hAxis.eLastVerticalTap != 0 && hAxis.eLastVerticalTap == ePrevious)
+                        if (hAxis.m_eLastVerticalTap != 0 && hAxis.m_eLastVerticalTap == ePrevious)
                         {
-                            hAxis.eVerticalDoubleTap = ePrevious;
+                            hAxis.m_eVerticalDoubleTap = ePrevious;
                         }
 
-                        hAxis.eVerticalTap = ePrevious;
-                        hAxis.eLastVerticalTap = ePrevious;
+                        hAxis.m_eVerticalTap = ePrevious;
+                        hAxis.m_eLastVerticalTap = ePrevious;
                     }
                     else
                     {
-                        hAxis.eLastVerticalTap = 0;
+                        hAxis.m_eLastVerticalTap = 0;
                     }
                 }
             }
@@ -408,239 +432,167 @@ namespace DSC.Core
             if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
                 return Vector2.zero;
 
-            return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].vAxis;
+            return m_lstPlayerInput[nPlayerID].m_arrAxis[nAxisID].m_vAxis;
         }
 
         public DirectionType2D GetAnyHorizontalPress()
         {
-            DirectionType2D eResult = 0;
-
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
-            {
-                for(int j = 0; j < m_lstPlayerInput[i].arrAxis.Length; j++)
-                {
-                    eResult = m_lstPlayerInput[i].arrAxis[j].eHorizontalPress;
-                    if (eResult != 0)
-                        goto Finish;
-                }                
-            }
-
-        Finish:
-            ;
-
-            return eResult;
+            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.Press);
         }
 
         public DirectionType2D GetAnyHorizontalPress(int nAxisID)
         {
-            DirectionType2D eResult = 0;
-
-            for (int i = 0; i < m_lstPlayerInput.Count; i++)
-            {
-                if (!HasAxisID(i, nAxisID))
-                    continue;
-
-                eResult = m_lstPlayerInput[i].arrAxis[nAxisID].eHorizontalPress;
-                if (eResult != 0)
-                    goto Finish;
-            }
-
-        Finish:
-            ;
-
-            return eResult;
+            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.Press, nAxisID);
         }
 
         public DirectionType2D GetHorizontalPress(int nPlayerID)
         {
-            return MainGetHorizontalPress(nPlayerID);
+            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.Press);
         }
 
         public DirectionType2D GetHorizontalPress(int nPlayerID, int nAxisID)
         {
-            return MainGetHorizontalPress(nPlayerID, nAxisID);
-        }
-
-        DirectionType2D MainGetHorizontalPress(int nPlayerID, int nAxisID = 0)
-        {
-            if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
-                return 0;
-
-            return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].eHorizontalPress;
+            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.Press, nAxisID);
         }
 
         public DirectionType2D GetAnyVerticalPress()
         {
-            DirectionType2D eResult = 0;
-
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
-            {
-                for(int j = 0; j < m_lstPlayerInput[i].arrAxis.Length; j++)
-                {
-                    eResult = m_lstPlayerInput[i].arrAxis[j].eVerticalPress;
-                    if (eResult != 0)
-                        goto Finish;
-                }
-            }
-
-        Finish:
-            ;
-
-            return eResult;
+            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.Press);
         }
 
         public DirectionType2D GetAnyVerticalPress(int nAxisID)
         {
-            DirectionType2D eResult = 0;
-
-            for (int i = 0; i < m_lstPlayerInput.Count; i++)
-            {
-                if (!HasAxisID(i, nAxisID))
-                    continue;
-
-                eResult = m_lstPlayerInput[i].arrAxis[nAxisID].eVerticalPress;
-                if (eResult != 0)
-                    goto Finish;
-            }
-
-        Finish:
-            ;
-
-            return eResult;
+            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.Press, nAxisID);
         }
 
         public DirectionType2D GetVerticalPress(int nPlayerID)
         {
-            return MainGetVerticalPress(nPlayerID);
+            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.Press);
         }
 
         public DirectionType2D GetVerticalPress(int nPlayerID, int nAxisID)
         {
-            return MainGetVerticalPress(nPlayerID, nAxisID);
-        }
-
-        DirectionType2D MainGetVerticalPress(int nPlayerID, int nAxisID = 0)
-        {
-            if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
-                return 0;
-
-            return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].eVerticalPress;
+            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.Press, nAxisID);
         }
 
         public DirectionType2D GetAnyHorizontalDoublePress()
         {
-            DirectionType2D eResult = 0;
-
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
-            {
-                for(int j = 0; j < m_lstPlayerInput[i].arrAxis.Length; j++)
-                {
-                    eResult = m_lstPlayerInput[i].arrAxis[j].eHorizontalDoublePress;
-                    if (eResult != 0)
-                        goto Finish;                    
-                }
-            }
-
-        Finish:
-            ;
-
-            return eResult;
+            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.DoublePress);
         }
 
         public DirectionType2D GetAnyHorizontalDoublePress(int nAxisID)
         {
-            DirectionType2D eResult = 0;
-
-            for (int i = 0; i < m_lstPlayerInput.Count; i++)
-            {
-                if (!HasAxisID(i, nAxisID))
-                    continue;
-
-                eResult = m_lstPlayerInput[i].arrAxis[nAxisID].eHorizontalDoublePress;
-                if (eResult != 0)
-                    goto Finish;
-            }
-
-        Finish:
-            ;
-
-            return eResult;
+            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.DoublePress, nAxisID);
         }
 
         public DirectionType2D GetHorizontalDoublePress(int nPlayerID)
         {
-            return MainGetHorizontalDoublePress(nPlayerID);
+            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.DoublePress);
         }
 
         public DirectionType2D GetHorizontalDoublePress(int nPlayerID, int nAxisID)
         {
-            return MainGetHorizontalDoublePress(nPlayerID, nAxisID);
-        }
-
-        DirectionType2D MainGetHorizontalDoublePress(int nPlayerID, int nAxisID = 0)
-        {
-            if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
-                return 0;
-
-            return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].eHorizontalDoublePress;
+            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.DoublePress, nAxisID);
         }
 
         public DirectionType2D GetAnyVerticalDoublePress()
         {
-            DirectionType2D eResult = 0;
-
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
-            {
-                for(int j = 0; j < m_lstPlayerInput[i].arrAxis.Length; j++)
-                {
-                    eResult = m_lstPlayerInput[i].arrAxis[j].eVerticalDoublePress;
-                    if (eResult != 0)
-                        goto Finish;
-                }
-            }
-
-        Finish:
-            ;
-
-            return eResult;
+            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.DoublePress);
         }
 
         public DirectionType2D GetAnyVerticalDoublePress(int nAxisID)
         {
-            DirectionType2D eResult = 0;
-
-            for (int i = 0; i < m_lstPlayerInput.Count; i++)
-            {
-                if (!HasAxisID(i, nAxisID))
-                    continue;
-
-                eResult = m_lstPlayerInput[i].arrAxis[nAxisID].eVerticalDoublePress;
-                if (eResult != 0)
-                    goto Finish;
-            }
-
-        Finish:
-            ;
-
-            return eResult;
+            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.DoublePress, nAxisID);
         }
 
         public DirectionType2D GetVerticalDoublePress(int nPlayerID)
         {
-            return MainGetVerticalDoublePress(nPlayerID);
+            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.DoublePress);
         }
 
         public DirectionType2D GetVerticalDoublePress(int nPlayerID, int nAxisID)
         {
-            return MainGetVerticalDoublePress(nPlayerID, nAxisID);
+            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.DoublePress, nAxisID);
         }
 
-        DirectionType2D MainGetVerticalDoublePress(int nPlayerID, int nAxisID = 0)
+        public DirectionType2D GetAnyHorizontalTap()
         {
-            if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
-                return 0;
+            return GetAnyAxisEvent(AxisType.Horizontal,AxisEventType.Tap);
+        }
 
-            return m_lstPlayerInput[nPlayerID].arrAxis[nAxisID].eVerticalDoublePress;
+        public DirectionType2D GetAnyHorizontalTap(int nAxisID)
+        {
+            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.Tap,nAxisID);
+        }
+
+        public DirectionType2D GetHorizontalTap(int nPlayerID)
+        {
+            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.Tap);
+        }
+
+        public DirectionType2D GetHorizontalTap(int nPlayerID, int nAxisID)
+        {
+            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.Tap,nAxisID);
+        }
+
+        public DirectionType2D GetAnyVerticalTap()
+        {
+            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.Tap);
+        }
+
+        public DirectionType2D GetAnyVerticalTap(int nAxisID)
+        {
+            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.Tap, nAxisID);
+        }
+
+        public DirectionType2D GetVerticalTap(int nPlayerID)
+        {
+            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.Tap);
+        }
+
+        public DirectionType2D GetVerticalTap(int nPlayerID, int nAxisID)
+        {
+            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.Tap, nAxisID);
+        }
+
+        public DirectionType2D GetAnyHorizontalDoubleTap()
+        {
+            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.DoubleTap);
+        }
+
+        public DirectionType2D GetAnyHorizontalDoubleTap(int nAxisID)
+        {
+            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.DoubleTap, nAxisID);
+        }
+
+        public DirectionType2D GetHorizontalDoubleTap(int nPlayerID)
+        {
+            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.DoubleTap);
+        }
+
+        public DirectionType2D GetHorizontalDoubleTap(int nPlayerID, int nAxisID)
+        {
+            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.DoubleTap, nAxisID);
+        }
+
+        public DirectionType2D GetAnyVerticalDoubleTap()
+        {
+            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.DoubleTap);
+        }
+
+        public DirectionType2D GetAnyVerticalDoubleTap(int nAxisID)
+        {
+            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.DoubleTap, nAxisID);
+        }
+
+        public DirectionType2D GetVerticalDoubleTap(int nPlayerID)
+        {
+            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.DoubleTap);
+        }
+
+        public DirectionType2D GetVerticalDoubleTap(int nPlayerID, int nAxisID)
+        {
+            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.DoubleTap, nAxisID);
         }
 
         public GetInputType GetButtonInput(int nButtonID)
@@ -668,8 +620,8 @@ namespace DSC.Core
                 return default;
 
             var hInputData = m_lstPlayerInput[nPlayerID];
-            if (hInputData.dicButton.TryGetValue(nButtonID, out var hButtonData))
-                return hButtonData.eGetType;
+            if (hInputData.m_dicButton.TryGetValue(nButtonID, out var hButtonData))
+                return hButtonData.m_eGetType;
 
             return default;
         }
@@ -690,15 +642,48 @@ namespace DSC.Core
             if (!HasPlayerID(nPlayerID))
                 return;
 
-            if (m_lstPlayerInput[nPlayerID].dicButton.TryGetValue(nButtonID, out var hButtonData))
-                hButtonData.eGetType = eInput;
+            var hInputData = m_lstPlayerInput[nPlayerID];
+            ResetFlag();
+            AddFlag();
+
+            if (hInputData.m_dicButton.TryGetValue(nButtonID, out var hButtonData))
+            {
+                hButtonData.m_eGetType = eInput;
+            }
             else
             {
-                m_lstPlayerInput[nPlayerID].dicButton.Add(nButtonID, new ButtonData
+                hInputData.m_dicButton.Add(nButtonID, new ButtonData
                 {
-                    eGetType = eInput
+                    m_eGetType = eInput
                 });
             }
+
+            m_lstPlayerInput[nPlayerID] = hInputData;
+
+            #region Method
+
+            void ResetFlag()
+            {
+                hInputData.m_nAllDownFlag &= ~nButtonID;
+                hInputData.m_nAllHoldFlag &= ~nButtonID;
+                hInputData.m_nAllUpFlag &= ~nButtonID;
+            }
+
+            void AddFlag()
+            {
+                switch (eInput)
+                {
+                    case GetInputType.Down:
+                        hInputData.m_nAllDownFlag |= nButtonID;
+                        break;
+
+                    case GetInputType.Up:
+                        hInputData.m_nAllUpFlag |= nButtonID;
+                        break;
+                }
+            }
+
+            #endregion
         }
 
         public bool GetAnyButtonDown()
@@ -707,12 +692,12 @@ namespace DSC.Core
 
             for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                foreach (var hButton in m_lstPlayerInput[i].dicButton)
+                foreach (var hButton in m_lstPlayerInput[i].m_dicButton)
                 {
                     if (hButton.Value == null)
                         continue;
 
-                    bResult = IsButtonDown(hButton.Value.eGetType);
+                    bResult = IsButtonDown(hButton.Value.m_eGetType);
                     if (bResult)
                         goto Finish;
                 }
@@ -730,12 +715,12 @@ namespace DSC.Core
             if (!HasPlayerID(nPlayerID))
                 goto Finish;
 
-            foreach (var hButton in m_lstPlayerInput[nPlayerID].dicButton)
+            foreach (var hButton in m_lstPlayerInput[nPlayerID].m_dicButton)
             {
                 if (hButton.Value == null)
                     continue;
 
-                bResult = IsButtonDown(hButton.Value.eGetType);
+                bResult = IsButtonDown(hButton.Value.m_eGetType);
                 if (bResult)
                     goto Finish;
             }
@@ -778,12 +763,12 @@ namespace DSC.Core
 
             for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                foreach(var hButton in m_lstPlayerInput[i].dicButton)
+                foreach(var hButton in m_lstPlayerInput[i].m_dicButton)
                 {
                     if (hButton.Value == null)
                         continue;
 
-                    bResult = IsButtonHold(hButton.Value.eGetType);
+                    bResult = IsButtonHold(hButton.Value.m_eGetType);
                     if (bResult)
                         goto Finish;
                 }
@@ -801,12 +786,12 @@ namespace DSC.Core
             if (!HasPlayerID(nPlayerID))
                 goto Finish;
 
-            foreach (var hButton in m_lstPlayerInput[nPlayerID].dicButton)
+            foreach (var hButton in m_lstPlayerInput[nPlayerID].m_dicButton)
             {
                 if (hButton.Value == null)
                     continue;
 
-                bResult = IsButtonHold(hButton.Value.eGetType);
+                bResult = IsButtonHold(hButton.Value.m_eGetType);
                 if (bResult)
                     goto Finish;
             }
@@ -847,12 +832,12 @@ namespace DSC.Core
             bool bResult = false;
             for(int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                foreach(var hButton in m_lstPlayerInput[i].dicButton)
+                foreach(var hButton in m_lstPlayerInput[i].m_dicButton)
                 {
                     if (hButton.Value == null)
                         continue;
 
-                    bResult = IsButtonUp(hButton.Value.eGetType);
+                    bResult = IsButtonUp(hButton.Value.m_eGetType);
                     if (bResult)
                         goto Finish;
                 }
@@ -870,12 +855,12 @@ namespace DSC.Core
             if(!HasPlayerID(nPlayerID))
                 goto Finish;
 
-            foreach (var hButton in m_lstPlayerInput[nPlayerID].dicButton)
+            foreach (var hButton in m_lstPlayerInput[nPlayerID].m_dicButton)
             {
                 if (hButton.Value == null)
                     continue;
 
-                bResult = IsButtonUp(hButton.Value.eGetType);
+                bResult = IsButtonUp(hButton.Value.m_eGetType);
                 if (bResult)
                     goto Finish;
             }
@@ -910,6 +895,30 @@ namespace DSC.Core
             return IsButtonUp(eInput);
         }
 
+        public int GetAllButtonDownFlag(int nPlayerID)
+        {
+            if (!HasPlayerID(nPlayerID))
+                return 0;
+
+            return m_lstPlayerInput[nPlayerID].m_nAllDownFlag;
+        }
+
+        public int GetAllButtonHoldFlag(int nPlayerID)
+        {
+            if (!HasPlayerID(nPlayerID))
+                return 0;
+
+            return m_lstPlayerInput[nPlayerID].m_nAllHoldFlag;
+        }
+
+        public int GetAllButtonUpFlag(int nPlayerID)
+        {
+            if (!HasPlayerID(nPlayerID))
+                return 0;
+
+            return m_lstPlayerInput[nPlayerID].m_nAllUpFlag;
+        }
+
         #endregion
 
         #region Helper
@@ -932,8 +941,8 @@ namespace DSC.Core
         {
             return new InputData
             {
-                arrAxis = new AxisData[nAxisNumber],
-                dicButton = new Dictionary<int, ButtonData>()
+                m_arrAxis = new AxisData[nAxisNumber],
+                m_dicButton = new Dictionary<int, ButtonData>()
             };
         }
 
@@ -950,7 +959,7 @@ namespace DSC.Core
 
         bool HasAxisID(int nPlayerID, int nAxisID)
         {
-            if (nAxisID < 0 || nAxisID >= m_lstPlayerInput[nPlayerID].arrAxis.Length)
+            if (nAxisID < 0 || nAxisID >= m_lstPlayerInput[nPlayerID].m_arrAxis.Length)
             {
                 Debug.LogError("Don't have this Axis ID");
                 return false;
@@ -978,6 +987,111 @@ namespace DSC.Core
         {
             return eInput == GetInputType.Up;
         }
+
+        DirectionType2D GetAnyAxisEvent(AxisType eAxis, AxisEventType eGetType)
+        {
+            DirectionType2D eResult = 0;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                for(int j = 0; j < m_lstPlayerInput[i].m_arrAxis.Length; j++)
+                {
+                    eResult = GetAxisEvent(i, eAxis, eGetType, j);
+                    if (eResult != 0)
+                        goto Finish;
+                }                
+            }
+
+        Finish:
+            ;
+
+            return eResult;
+        }
+
+        DirectionType2D GetAnyAxisEvent(AxisType eAxis, AxisEventType eGetType, int nAxisID)
+        {
+            DirectionType2D eResult = 0;
+
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
+            {
+                eResult = GetAxisEvent(i, eAxis, eGetType, nAxisID);
+                if (eResult != 0)
+                    goto Finish;
+            }
+
+        Finish:
+            ;
+
+            return eResult;
+        }
+
+        DirectionType2D GetAxisEvent(int nPlayerID, AxisType eAxis, AxisEventType eGetType, int nAxisID = 0)
+        {
+            DirectionType2D eResult = 0;
+
+            if (!HasPlayerID(nPlayerID) || !HasAxisID(nPlayerID, nAxisID))
+                return eResult;
+
+            var hAxisData = m_lstPlayerInput[nPlayerID].m_arrAxis[nAxisID];
+
+            switch (eAxis)
+            {
+                case AxisType.Horizontal:
+                    eResult = GetHorizontalResult();
+                    break;
+
+                case AxisType.Vertical:
+                    eResult = GetVerticalResult();
+                    break;
+            }
+
+            return eResult;
+
+            #region Method
+
+            DirectionType2D GetHorizontalResult()
+            {
+                switch (eGetType)
+                {
+                    case AxisEventType.Press:
+                        return hAxisData.m_eHorizontalPress;
+
+                    case AxisEventType.DoublePress:
+                        return hAxisData.m_eHorizontalDoublePress;
+
+                    case AxisEventType.Tap:
+                        return hAxisData.m_eHorizontalTap;
+
+                    case AxisEventType.DoubleTap:
+                        return hAxisData.m_eHorizontalDoubleTap;
+                }
+
+                return 0;
+            }
+
+            DirectionType2D GetVerticalResult()
+            {
+                switch (eGetType)
+                {
+                    case AxisEventType.Press:
+                        return hAxisData.m_eVerticalPress;
+
+                    case AxisEventType.DoublePress:
+                        return hAxisData.m_eVerticalDoublePress;
+
+                    case AxisEventType.Tap:
+                        return hAxisData.m_eVerticalTap;
+
+                    case AxisEventType.DoubleTap:
+                        return hAxisData.m_eVerticalDoubleTap;
+                }
+
+                return 0;
+            }
+
+            #endregion
+        }
+
 
         #endregion
     }
