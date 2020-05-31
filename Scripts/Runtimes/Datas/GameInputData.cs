@@ -6,24 +6,6 @@ namespace DSC.Core
 {
     public struct GameInputData
     {
-        #region Enum
-
-        enum AxisType
-        {
-            Horizontal,
-            Vertical
-        }
-
-        enum AxisEventType
-        {
-            Press,
-            DoublePress,
-            Tap,
-            DoubleTap
-        }
-
-        #endregion
-
         #region Data
 
         struct AxisData
@@ -78,7 +60,7 @@ namespace DSC.Core
         readonly float m_fSensitivity;
         readonly float m_fGravity;
         readonly int m_nAxisNumber;
-        
+
 
         #endregion
 
@@ -246,7 +228,7 @@ namespace DSC.Core
         {
             Vector2 vResult = Vector2.zero;
 
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
                 vResult = MainGetRawAxis(i);
                 if (vResult != Vector2.zero)
@@ -262,7 +244,7 @@ namespace DSC.Core
 
             for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                vResult = MainGetRawAxis(i,nAxisID);
+                vResult = MainGetRawAxis(i, nAxisID);
                 if (vResult != Vector2.zero)
                     break;
             }
@@ -393,7 +375,7 @@ namespace DSC.Core
         {
             Vector2 vResult = Vector2.zero;
 
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
                 vResult = MainGetAxis(i);
                 if (vResult != Vector2.zero)
@@ -409,7 +391,7 @@ namespace DSC.Core
 
             for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                vResult = MainGetAxis(i,nAxisID);
+                vResult = MainGetAxis(i, nAxisID);
                 if (vResult != Vector2.zero)
                     break;
             }
@@ -435,171 +417,31 @@ namespace DSC.Core
             return m_lstPlayerInput[nPlayerID].m_arrAxis[nAxisID].m_vAxis;
         }
 
-        public DirectionType2D GetAnyHorizontalPress()
+        public DirectionType2D GetAnyAxisEvent(AxisEventType eEventType)
         {
-            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.Press);
+            return MainGetAnyAxisEvent(eEventType);
         }
 
-        public DirectionType2D GetAnyHorizontalPress(int nAxisID)
+        public DirectionType2D GetAnyAxisEvent(AxisEventType eEventType,int nAxisID)
         {
-            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.Press, nAxisID);
+            return MainGetAnyAxisEvent(eEventType, nAxisID);
         }
 
-        public DirectionType2D GetHorizontalPress(int nPlayerID)
+        public DirectionType2D GetAxisEvent(int nPlayerID,AxisEventType eEventType)
         {
-            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.Press);
+            return MainGetAxisEvent(nPlayerID, eEventType);
         }
 
-        public DirectionType2D GetHorizontalPress(int nPlayerID, int nAxisID)
+        public DirectionType2D GetAxisEvent(int nPlayerID, AxisEventType eEventType,int nAxisID)
         {
-            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.Press, nAxisID);
-        }
-
-        public DirectionType2D GetAnyVerticalPress()
-        {
-            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.Press);
-        }
-
-        public DirectionType2D GetAnyVerticalPress(int nAxisID)
-        {
-            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.Press, nAxisID);
-        }
-
-        public DirectionType2D GetVerticalPress(int nPlayerID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.Press);
-        }
-
-        public DirectionType2D GetVerticalPress(int nPlayerID, int nAxisID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.Press, nAxisID);
-        }
-
-        public DirectionType2D GetAnyHorizontalDoublePress()
-        {
-            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.DoublePress);
-        }
-
-        public DirectionType2D GetAnyHorizontalDoublePress(int nAxisID)
-        {
-            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.DoublePress, nAxisID);
-        }
-
-        public DirectionType2D GetHorizontalDoublePress(int nPlayerID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.DoublePress);
-        }
-
-        public DirectionType2D GetHorizontalDoublePress(int nPlayerID, int nAxisID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.DoublePress, nAxisID);
-        }
-
-        public DirectionType2D GetAnyVerticalDoublePress()
-        {
-            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.DoublePress);
-        }
-
-        public DirectionType2D GetAnyVerticalDoublePress(int nAxisID)
-        {
-            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.DoublePress, nAxisID);
-        }
-
-        public DirectionType2D GetVerticalDoublePress(int nPlayerID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.DoublePress);
-        }
-
-        public DirectionType2D GetVerticalDoublePress(int nPlayerID, int nAxisID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.DoublePress, nAxisID);
-        }
-
-        public DirectionType2D GetAnyHorizontalTap()
-        {
-            return GetAnyAxisEvent(AxisType.Horizontal,AxisEventType.Tap);
-        }
-
-        public DirectionType2D GetAnyHorizontalTap(int nAxisID)
-        {
-            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.Tap,nAxisID);
-        }
-
-        public DirectionType2D GetHorizontalTap(int nPlayerID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.Tap);
-        }
-
-        public DirectionType2D GetHorizontalTap(int nPlayerID, int nAxisID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.Tap,nAxisID);
-        }
-
-        public DirectionType2D GetAnyVerticalTap()
-        {
-            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.Tap);
-        }
-
-        public DirectionType2D GetAnyVerticalTap(int nAxisID)
-        {
-            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.Tap, nAxisID);
-        }
-
-        public DirectionType2D GetVerticalTap(int nPlayerID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.Tap);
-        }
-
-        public DirectionType2D GetVerticalTap(int nPlayerID, int nAxisID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.Tap, nAxisID);
-        }
-
-        public DirectionType2D GetAnyHorizontalDoubleTap()
-        {
-            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.DoubleTap);
-        }
-
-        public DirectionType2D GetAnyHorizontalDoubleTap(int nAxisID)
-        {
-            return GetAnyAxisEvent(AxisType.Horizontal, AxisEventType.DoubleTap, nAxisID);
-        }
-
-        public DirectionType2D GetHorizontalDoubleTap(int nPlayerID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.DoubleTap);
-        }
-
-        public DirectionType2D GetHorizontalDoubleTap(int nPlayerID, int nAxisID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Horizontal, AxisEventType.DoubleTap, nAxisID);
-        }
-
-        public DirectionType2D GetAnyVerticalDoubleTap()
-        {
-            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.DoubleTap);
-        }
-
-        public DirectionType2D GetAnyVerticalDoubleTap(int nAxisID)
-        {
-            return GetAnyAxisEvent(AxisType.Vertical, AxisEventType.DoubleTap, nAxisID);
-        }
-
-        public DirectionType2D GetVerticalDoubleTap(int nPlayerID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.DoubleTap);
-        }
-
-        public DirectionType2D GetVerticalDoubleTap(int nPlayerID, int nAxisID)
-        {
-            return GetAxisEvent(nPlayerID, AxisType.Vertical, AxisEventType.DoubleTap, nAxisID);
+            return MainGetAxisEvent(nPlayerID, eEventType, nAxisID);
         }
 
         public GetInputType GetButtonInput(int nButtonID)
         {
             var eResult = GetInputType.None;
 
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
                 eResult = MainGetButtonInput(i, nButtonID);
                 if (eResult != GetInputType.None)
@@ -735,7 +577,7 @@ namespace DSC.Core
         {
             bool bResult = false;
 
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
                 bResult = MainGetButtonDown(i, nButtonID);
                 if (bResult)
@@ -745,7 +587,7 @@ namespace DSC.Core
             return bResult;
         }
 
-        public bool GetButtonDown(int nPlayerID,int nButtonID)
+        public bool GetButtonDown(int nPlayerID, int nButtonID)
         {
             return MainGetButtonDown(nPlayerID, nButtonID);
         }
@@ -763,7 +605,7 @@ namespace DSC.Core
 
             for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                foreach(var hButton in m_lstPlayerInput[i].m_dicButton)
+                foreach (var hButton in m_lstPlayerInput[i].m_dicButton)
                 {
                     if (hButton.Value == null)
                         continue;
@@ -806,7 +648,7 @@ namespace DSC.Core
         {
             bool bResult = false;
 
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
                 bResult = MainGetButtonHold(i, nButtonID);
                 if (bResult)
@@ -816,7 +658,7 @@ namespace DSC.Core
             return bResult;
         }
 
-        public bool GetButtonHold(int nPlayerID,int nButtonID)
+        public bool GetButtonHold(int nPlayerID, int nButtonID)
         {
             return MainGetButtonHold(nPlayerID, nButtonID);
         }
@@ -830,9 +672,9 @@ namespace DSC.Core
         public bool GetAnyButtonUp()
         {
             bool bResult = false;
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                foreach(var hButton in m_lstPlayerInput[i].m_dicButton)
+                foreach (var hButton in m_lstPlayerInput[i].m_dicButton)
                 {
                     if (hButton.Value == null)
                         continue;
@@ -852,7 +694,7 @@ namespace DSC.Core
         public bool GetAnyButtonUp(int nPlayerID)
         {
             bool bResult = false;
-            if(!HasPlayerID(nPlayerID))
+            if (!HasPlayerID(nPlayerID))
                 goto Finish;
 
             foreach (var hButton in m_lstPlayerInput[nPlayerID].m_dicButton)
@@ -874,7 +716,7 @@ namespace DSC.Core
         public bool GetButtonUp(int nButtonID)
         {
             bool bResult = false;
-            for(int i = 0; i < m_lstPlayerInput.Count; i++)
+            for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
                 bResult = MainGetButtonUp(i, nButtonID);
                 if (bResult)
@@ -884,7 +726,7 @@ namespace DSC.Core
             return bResult;
         }
 
-        public bool GetButtonUp(int nPlayerID,int nButtonID)
+        public bool GetButtonUp(int nPlayerID, int nButtonID)
         {
             return MainGetButtonUp(nPlayerID, nButtonID);
         }
@@ -988,18 +830,28 @@ namespace DSC.Core
             return eInput == GetInputType.Up;
         }
 
-        DirectionType2D GetAnyAxisEvent(AxisType eAxis, AxisEventType eGetType)
+        DirectionType2D MainGetAnyAxisEvent(AxisEventType eEventType)
+        {
+            DirectionType2D eResult;
+
+            eResult = MainGetAnyAxisEvent(AxisType.Horizontal, eEventType);
+            eResult |= MainGetAnyAxisEvent(AxisType.Vertical, eEventType);
+
+            return eResult;
+        }
+
+        DirectionType2D MainGetAnyAxisEvent(AxisType eAxis, AxisEventType eEventType)
         {
             DirectionType2D eResult = 0;
 
             for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                for(int j = 0; j < m_lstPlayerInput[i].m_arrAxis.Length; j++)
+                for (int j = 0; j < m_lstPlayerInput[i].m_arrAxis.Length; j++)
                 {
-                    eResult = GetAxisEvent(i, eAxis, eGetType, j);
+                    eResult = MainGetAxisEvent(i, eAxis, eEventType, j);
                     if (eResult != 0)
                         goto Finish;
-                }                
+                }
             }
 
         Finish:
@@ -1008,13 +860,23 @@ namespace DSC.Core
             return eResult;
         }
 
-        DirectionType2D GetAnyAxisEvent(AxisType eAxis, AxisEventType eGetType, int nAxisID)
+        DirectionType2D MainGetAnyAxisEvent(AxisEventType eEventType, int nAxisID)
+        {
+            DirectionType2D eResult;
+
+            eResult = MainGetAnyAxisEvent(AxisType.Horizontal, eEventType, nAxisID);
+            eResult |= MainGetAnyAxisEvent(AxisType.Vertical, eEventType, nAxisID);
+
+            return eResult;
+        }
+
+        DirectionType2D MainGetAnyAxisEvent(AxisType eAxis, AxisEventType eEventType, int nAxisID)
         {
             DirectionType2D eResult = 0;
 
             for (int i = 0; i < m_lstPlayerInput.Count; i++)
             {
-                eResult = GetAxisEvent(i, eAxis, eGetType, nAxisID);
+                eResult = MainGetAxisEvent(i, eAxis, eEventType, nAxisID);
                 if (eResult != 0)
                     goto Finish;
             }
@@ -1025,7 +887,17 @@ namespace DSC.Core
             return eResult;
         }
 
-        DirectionType2D GetAxisEvent(int nPlayerID, AxisType eAxis, AxisEventType eGetType, int nAxisID = 0)
+        DirectionType2D MainGetAxisEvent(int nPlayerID, AxisEventType eEventType, int nAxisID = 0)
+        {
+            DirectionType2D eResult;
+
+            eResult = MainGetAxisEvent(nPlayerID, AxisType.Horizontal, eEventType, nAxisID);
+            eResult |= MainGetAxisEvent(nPlayerID, AxisType.Vertical, eEventType, nAxisID);
+
+            return eResult;
+        }
+
+        DirectionType2D MainGetAxisEvent(int nPlayerID, AxisType eAxis, AxisEventType eEventType, int nAxisID = 0)
         {
             DirectionType2D eResult = 0;
 
@@ -1051,7 +923,7 @@ namespace DSC.Core
 
             DirectionType2D GetHorizontalResult()
             {
-                switch (eGetType)
+                switch (eEventType)
                 {
                     case AxisEventType.Press:
                         return hAxisData.m_eHorizontalPress;
@@ -1071,7 +943,7 @@ namespace DSC.Core
 
             DirectionType2D GetVerticalResult()
             {
-                switch (eGetType)
+                switch (eEventType)
                 {
                     case AxisEventType.Press:
                         return hAxisData.m_eVerticalPress;

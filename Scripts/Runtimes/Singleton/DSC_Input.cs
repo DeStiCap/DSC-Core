@@ -111,260 +111,36 @@ namespace DSC.Core
             return m_hBaseInstance.gameInputData.GetAxis(nPlayerID, nAxisID);
         }
 
-        public static DirectionType2D GetAnyHorizontalPress()
+        public static DirectionType2D GetAnyAxisEvent(AxisEventType eEventType)
         {
             if (!HasBaseInstance())
                 return 0;
 
-            return m_hBaseInstance.gameInputData.GetAnyHorizontalPress();
+            return m_hBaseInstance.gameInputData.GetAnyAxisEvent(eEventType);
         }
 
-        public static DirectionType2D GetAnyHorizontalPress(int nAxisID)
+        public static DirectionType2D GetAnyAxisEvent(AxisEventType eEventType, int nAxisID)
         {
             if (!HasBaseInstance())
                 return 0;
 
-            return m_hBaseInstance.gameInputData.GetAnyHorizontalPress(nAxisID);
+            return m_hBaseInstance.gameInputData.GetAnyAxisEvent(eEventType, nAxisID);
         }
 
-        public static DirectionType2D GetHorizontalPress(int nPlayerID)
+        public static DirectionType2D GetAxisEvent(int nPlayerID, AxisEventType eEventType)
         {
             if (!HasBaseInstance())
                 return 0;
 
-            return m_hBaseInstance.gameInputData.GetHorizontalPress(nPlayerID);
+            return m_hBaseInstance.gameInputData.GetAxisEvent(nPlayerID, eEventType);
         }
 
-        public static DirectionType2D GetHorizontalPress(int nPlayerID, int nAxisID)
+        public static DirectionType2D GetAxisEvent(int nPlayerID, AxisEventType eEventType, int nAxisID)
         {
             if (!HasBaseInstance())
                 return 0;
 
-            return m_hBaseInstance.gameInputData.GetHorizontalPress(nPlayerID, nAxisID);
-        }
-
-        public static DirectionType2D GetAnyVerticalPress()
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyVerticalPress();
-        }
-
-        public static DirectionType2D GetAnyVerticalPress(int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyVerticalPress(nAxisID);
-        }
-
-        public static DirectionType2D GetVerticalPress(int nPlayerID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetVerticalPress(nPlayerID);
-        }
-
-        public static DirectionType2D GetVerticalPress(int nPlayerID, int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetVerticalPress(nPlayerID, nAxisID);
-        }
-
-        public static DirectionType2D GetAnyHorizontalDoublePress()
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyHorizontalDoublePress();
-        }
-
-        public static DirectionType2D GetAnyHorizontalDoublePress(int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyHorizontalDoublePress(nAxisID);
-        }
-
-        public static DirectionType2D GetHorizontalDoublePress(int nPlayerID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetHorizontalDoublePress(nPlayerID);
-        }
-
-        public static DirectionType2D GetHorizontalDoublePress(int nPlayerID, int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetHorizontalDoublePress(nPlayerID, nAxisID);
-        }
-
-        public static DirectionType2D GetAnyVerticalDoublePress()
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyVerticalDoublePress();
-        }
-
-        public static DirectionType2D GetAnyVerticalDoublePress(int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyVerticalDoublePress(nAxisID);
-        }
-
-        public static DirectionType2D GetVerticalDoublePress(int nPlayerID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetVerticalDoublePress(nPlayerID);
-        }
-
-        public static DirectionType2D GetVerticalDoublePress(int nPlayerID, int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetVerticalDoublePress(nPlayerID, nAxisID);
-        }
-
-        public static DirectionType2D GetAnyHorizontalTap()
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyHorizontalTap();
-        }
-
-        public static DirectionType2D GetAnyHorizontalTap(int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyHorizontalTap(nAxisID);
-        }
-
-        public static DirectionType2D GetHorizontalTap(int nPlayerID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetHorizontalTap(nPlayerID);
-        }
-
-        public static DirectionType2D GetHorizontalTap(int nPlayerID, int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetHorizontalTap(nPlayerID, nAxisID);
-        }
-
-        public static DirectionType2D GetAnyVerticalTap()
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyVerticalTap();
-        }
-
-        public static DirectionType2D GetAnyVerticalTap(int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyVerticalTap(nAxisID);
-        }
-
-        public static DirectionType2D GetVerticalTap(int nPlayerID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetVerticalTap(nPlayerID);
-        }
-
-        public static DirectionType2D GetVerticalTap(int nPlayerID, int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetVerticalTap(nPlayerID, nAxisID);
-        }
-
-        public static DirectionType2D GetAnyHorizontalDoubleTap()
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyHorizontalDoubleTap();
-        }
-
-        public static DirectionType2D GetAnyHorizontalDoubleTap(int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyHorizontalDoubleTap(nAxisID);
-        }
-
-        public static DirectionType2D GetHorizontalDoubleTap(int nPlayerID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetHorizontalDoubleTap(nPlayerID);
-        }
-
-        public static DirectionType2D GetHorizontalDoubleTap(int nPlayerID, int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetHorizontalDoubleTap(nPlayerID, nAxisID);
-        }
-
-        public static DirectionType2D GetAnyVerticalDoubleTap()
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyVerticalDoubleTap();
-        }
-
-        public static DirectionType2D GetAnyVerticalDoubleTap(int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetAnyVerticalDoubleTap(nAxisID);
-        }
-
-        public static DirectionType2D GetVerticalDoubleTap(int nPlayerID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetVerticalDoubleTap(nPlayerID);
-        }
-
-        public static DirectionType2D GetVerticalDoubleTap(int nPlayerID, int nAxisID)
-        {
-            if (!HasBaseInstance())
-                return 0;
-
-            return m_hBaseInstance.gameInputData.GetVerticalDoubleTap(nPlayerID, nAxisID);
+            return m_hBaseInstance.gameInputData.GetAxisEvent(nPlayerID, eEventType, nAxisID);
         }
 
         public static GetInputType GetButtonInput(int nButtonID)

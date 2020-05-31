@@ -2,12 +2,12 @@
     "name": "com.dsc.core",
     "author": "DeStiCap",
     "displayName": "DSC Core",
-    "version": "0.2.3-preview.1",
+    "version": "0.2.4-preview.1",
     "unity": "2019.3",
     "repository": {
         "type": "git",
         "url": "https://github.com/DeStiCap/DSC-Core.git",
-        "revision": "ed3ed30a97624d538933966903628c08ae93a950"
+        "revision": "31af3fe5090f187934490430a96452ea5bd03e8a"
     },
 	"description": "Core for helper plugin.",
     "keywords": [
@@ -18,11 +18,6 @@
             "displayName": "GameManager Template",
             "description": "Template for game manager.",
             "path": "Samples~/GameManagerTemplate"
-        },
-        {
-            "displayName": "Input Template",
-            "description": "Template for game input.",
-            "path": "Samples~/InputTemplate"
         }
     ]
 }

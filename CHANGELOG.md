@@ -1,3 +1,8 @@
+## [0.2.4-preview.1] - 2019-05-31
+- Add GetAxisEvent function in GameInputData and DSC_Input.
+- Add GetAnyAxisEvent function in GameInputData and DSC_Input.
+- Remove InputTemplate sameple. (It move to DSC_Actor_DOTS package instead.)
+
 ## [0.2.3-preview.1] - 2019-05-29
 - Add GetAllButtonDownFlag, GetAllButtonHoldFlag, GetAllButtonUpFlag function in GameInputData.
 - Add Get Axis tap, double tap function in GameInputData and DSC_Input.
