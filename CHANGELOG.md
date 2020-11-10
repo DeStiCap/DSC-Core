@@ -1,3 +1,6 @@
+## [0.3.1-preview.1] - 2020-11-10
+- Move GameManagerTemplates sample folder.
+
 ## [0.3.0-preview.1] - 2020-07-03
 - Change minimum Unity version requirement to 2019.4
 
