@@ -1,5 +1,6 @@
 {
     "name": "DSC.Core",
+    "rootNamespace": "DSC.Core",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,5 +1,6 @@
 {
     "name": "DSC.Core.Editor",
+    "rootNamespace": "DSC.Core.Editor",
     "references": [
         "GUID:acff8e849db7dec488c770445e10185e"
     ],

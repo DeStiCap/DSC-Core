@@ -1,3 +1,8 @@
+## [0.4.0-preview.1] - 2021-01-07
+- Change minimum requirement Unity version to 2020.2
+- Move DSC_Input,GameInputData script to DSC-Input package.
+- Move Global_InputManager script and prefab to DSC-Input package.
+
 ## [0.3.1-preview.1] - 2020-11-10
 - Move GameManagerTemplates sample folder.
 
