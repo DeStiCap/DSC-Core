@@ -1,3 +1,6 @@
+## [0.4.1-preview.1] - 2021-01-17
+- Add Dictionary extension TryAdd.
+
 ## [0.4.0-preview.1] - 2021-01-07
 - Change minimum requirement Unity version to 2020.2
 - Move DSC_Input,GameInputData script to DSC-Input package.

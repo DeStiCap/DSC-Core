@@ -2,12 +2,12 @@
     "name": "com.dsc.core",
     "author": "DeStiCap",
     "displayName": "DSC Core",
-    "version": "0.4.0-preview.1",
+    "version": "0.4.1-preview.1",
     "unity": "2020.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/DeStiCap/DSC-Core.git",
-        "revision": "460330cda6b255d328a70fd4cbbc6aaf48eda93a"
+        "revision": "4ca062225a52d186b60141ee2abb7749f20fc3cb"
     },
 	"description": "Core for helper plugin.",
     "keywords": [
