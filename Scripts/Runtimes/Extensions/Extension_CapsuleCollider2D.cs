@@ -10,7 +10,7 @@ namespace DSC.Core
         {
             Vector2 vResult = (Vector2)hCol.transform.position + hCol.offset;
 
-            vResult.y += hCol.size.y;
+            vResult.y += hCol.size.y * 0.5f;
 
             return vResult;
         }
@@ -19,7 +19,7 @@ namespace DSC.Core
         {
             Vector2 vResult = (Vector2)hCol.transform.position + hCol.offset;
 
-            vResult.y -= hCol.size.y;
+            vResult.y -= hCol.size.y * 0.5f;
 
             return vResult;
         }

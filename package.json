@@ -2,7 +2,7 @@
     "name": "com.dsc.core",
     "author": "DeStiCap",
     "displayName": "DSC Core",
-    "version": "0.4.2-preview.1",
+    "version": "0.4.2-preview.2",
     "unity": "2020.2",
     "repository": {
         "type": "git",
