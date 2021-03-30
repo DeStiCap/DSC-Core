@@ -1,3 +1,6 @@
+## [0.4.3-preview.1] - 2021-03-30
+- Change some execution order in GameManagerTemplate sample.
+
 ## [0.4.2-preview.2] - 2021-02-08
 - Add Extension_CapsuleCollider2D script.
 - Add GetPositionTop and GetPositionBottom method in Extension_CapsuleCollider2D.
