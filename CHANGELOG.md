@@ -1,3 +1,6 @@
+## [0.4.4-preview.1] - 2021-04-02
+- Add GetCursorWorldPosition method in InputUtility.
+
 ## [0.4.3-preview.1] - 2021-03-30
 - Change some execution order in GameManagerTemplate sample.
 

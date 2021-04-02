@@ -56,7 +56,7 @@ namespace DSC.Core
         /// <param name="ePreviousGetType">Previous get type.</param>
         /// <param name="bRawValue">Raw value from new input.</param>
         /// <returns>Convert GetInputType</returns>
-        public static GetInputType ConvertRawValueToGetType(GetInputType ePreviousGetType,bool bRawValue)
+        public static GetInputType ConvertRawValueToGetType(GetInputType ePreviousGetType, bool bRawValue)
         {
             var eResult = GetInputType.None;
 
@@ -90,6 +90,11 @@ namespace DSC.Core
             }
 
             return eResult;
+        }
+
+        public static Vector3 GetCursorWorldPosition()
+        {
+            return Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
     }
 }
