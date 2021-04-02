@@ -92,6 +92,10 @@ namespace DSC.Core
             return eResult;
         }
 
+        /// <summary>
+        /// Get cursor world position.
+        /// </summary>
+        /// <returns>Cursor world position</returns>
         public static Vector3 GetCursorWorldPosition()
         {
             return Camera.main.ScreenToWorldPoint(Input.mousePosition);
