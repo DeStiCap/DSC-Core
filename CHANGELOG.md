@@ -1,3 +1,7 @@
+## [0.5.0-preview.1] - 2021-04-03
+- Change minimum requirement Unity version to 2020.3
+- Remove Global_GameplayManager script in GameManager template.
+
 ## [0.4.4-preview.2] - 2021-04-02
 - Add GetCursorWorldPosition method in InputUtility.
 
