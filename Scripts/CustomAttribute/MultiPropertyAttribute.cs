@@ -21,7 +21,7 @@ namespace DSC.Core
         public virtual void OnPostGUI(Rect position, UnityEditor.SerializedProperty property, GUIContent label) { }
 
         public virtual bool IsVisible(UnityEditor.SerializedProperty property) { return true; }
-        public virtual float? GetPropertyHeight(UnityEditor.SerializedProperty property, GUIContent label) { return null; }
+        public virtual float? GetPropertyHeight(UnityEditor.SerializedProperty property, GUIContent label, float baseHeight) { return null; }
 #endif
     }
 }

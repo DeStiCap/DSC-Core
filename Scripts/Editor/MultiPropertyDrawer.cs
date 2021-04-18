@@ -39,7 +39,7 @@ namespace DSC.Core.Editor
             {
                 if (atr as MultiPropertyAttribute != null)
                 {
-                    var tempheight = ((MultiPropertyAttribute)atr).GetPropertyHeight(property, label);
+                    var tempheight = ((MultiPropertyAttribute)atr).GetPropertyHeight(property, label, height);
                     if (tempheight.HasValue)
                     {
                         height = tempheight.Value;

@@ -1,3 +1,6 @@
+## [0.5.1-preview.1] - 2021-04-18
+- Add TextFieldAttribute script.
+
 ## [0.5.0-preview.1] - 2021-04-03
 - Change minimum requirement Unity version to 2020.3
 - Remove Global_GameplayManager script in GameManager template.
