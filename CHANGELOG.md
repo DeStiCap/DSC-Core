@@ -1,3 +1,6 @@
+## [0.5.2-preview.1] - 2021-04-21
+- Add HasKey method in Extension_Dictionary script.
+
 ## [0.5.1-preview.1] - 2021-04-18
 - Add TextFieldAttribute script.
 

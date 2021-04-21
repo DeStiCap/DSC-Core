@@ -27,5 +27,18 @@ namespace DSC.Core
 
             return bResult;
         }
+
+        /// <summary>
+        /// Check if has this key in dictionary.
+        /// </summary>
+        /// <param name="dictionary"></param>
+        /// <param name="hKey"></param>
+        /// <typeparam name="Key"></typeparam>
+        /// <typeparam name="Data"></typeparam>
+        /// <returns></returns>
+        public static bool HasKey<Key, Data>(this Dictionary<Key, Data> dictionary, Key hKey)
+        {
+            return (dictionary != null && dictionary.Count > 0 && dictionary.ContainsKey(hKey));
+        }
     }
 }
