@@ -1,3 +1,7 @@
+## [0.5.3-preview.1] - 2021-05-19
+- Added Extension_Camera class.
+- Added RaycastScreenToWorld method in Extension_Camera class.
+
 ## [0.5.2-preview.1] - 2021-04-21
 - Add HasKey method in Extension_Dictionary script.
 
