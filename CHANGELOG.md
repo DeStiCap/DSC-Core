@@ -1,3 +1,6 @@
+## [0.5.4-preview.1] - 2021-11-23
+- Added MathUtility class.
+
 ## [0.5.3-preview.1] - 2021-05-19
 - Added Extension_Camera class.
 - Added RaycastScreenToWorld method in Extension_Camera class.
