@@ -1,3 +1,7 @@
+## [0.5.6-preview.1] - 2022-01-07
+- Added GizmosUtility class.
+- Added DrawWireCapsule method in GizmosUtility class.
+
 ## [0.5.5-preview.1] - 2022-01-02
 - Added Extension_Component class.
 - Added CompareTag method in Extension_Component class.
