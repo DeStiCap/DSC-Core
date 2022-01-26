@@ -37,8 +37,8 @@ namespace DSC.Core
                 Handles.DrawWireDisc(Vector3.down * fPointOffset, Vector3.up, fRadius);
 
                 Handles.color = hOldColor;
-#endif
             }
+#endif
         }
 
         public static void DrawWireCapsule(Vector3 vPoint1, Vector3 vPoint2, float fRadius)

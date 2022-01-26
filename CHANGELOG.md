@@ -1,3 +1,6 @@
+## [0.5.7-preview.1] - 2022-01-27
+- Fixed bug GizmosUtility class make build fail.
+
 ## [0.5.6-preview.1] - 2022-01-07
 - Added GizmosUtility class.
 - Added DrawWireCapsule method in GizmosUtility class.
